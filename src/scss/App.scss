@@ -16,6 +16,19 @@ html {
   padding: 0;
 }
 
+a{
+  color: $col_SecondaryText;
+  text-decoration: none;
+
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+.mail{
+  text-decoration: underline;
+}
+
 .headlines {
     text-align: center;
   }
@@ -76,6 +89,45 @@ html {
     &:hover {
       color: $col_btn_color_hover;
       background-color: $col_btn_backgroundColor_hover;
+    }
+  }
+
+  //*Guide
+  .guideList, .aboutList{
+    text-align: center;
+    list-style-position: inside;
+    margin-bottom: 2rem;
+
+    li{
+      line-height: 1.8;
+    }
+    
+    ul{
+      padding-left: 25px;
+    }
+  }
+
+  .guideList > li{
+    font-weight: bold;
+  }
+
+  .guideList > li >ul > li {
+    font-weight: normal;
+    font-style: italic;
+    font-size: .95rem;
+  }
+
+  //*About
+  .about{
+    line-height: 1.5;
+  }
+
+  .aboutList{
+    text-align: left;
+    padding-left: 25px;
+
+    ol {
+      padding-left: 35px;
     }
   }
   

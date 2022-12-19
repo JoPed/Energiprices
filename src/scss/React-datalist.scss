@@ -78,3 +78,13 @@
    background-color: $col_option--hover;
    color: $col_MainText;
  }
+
+
+ @media only screen and (max-width: 500px) {
+
+  .priceArea, .limit, .date{
+    width: 75%;
+   }
+
+  
+ }

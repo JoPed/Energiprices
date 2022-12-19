@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -27,10 +27,15 @@ const Energipriser = () => {
 
     const [ startDate, setStartDate ] = useState( '' );
 
-    const [ limitHours, setLimitHours ] = useState();
+    // const [ limitHours, setLimitHours ] = useState();
+
+    const limitHours = useRef();
 
     const [ chartData, setChartData ] = useState( {} );
 
+    const backgroundColors = useRef( [] );
+
+    const priceUnitMultipier = useRef();
 
     // labels der bliver brugt på x-aksen
     const [ labels, setLabels ] = useState();
@@ -67,6 +72,17 @@ const Energipriser = () => {
 
     ]
 
+    const priceUnitData = [
+        {
+            id:'mwh',
+            value: 'MWh'
+        },
+        {
+            id: 'kwh',
+            value: 'KWh'
+        }
+    ]
+
     // styling af tooltip (den der kommer frem ved at hover over en søjle i diagrammet)
     const tooltip = {
         callbacks: {
@@ -87,14 +103,19 @@ const Energipriser = () => {
      bliver brugt ved <Bar /> elementet*/
     const options = {
         responsive: true,
+
         plugins: {
             tooltip,
+            legend: {
+                display: false,
+
+            }
         },
         scales: {
             y: {
                 title: {
                     display: true,
-                    text: 'DKK pr. kwh'
+                    text: `DKK pr. ${priceUnitMultipier.current === 1 ? 'MWh' : 'KWh'}`
                 },
 
             },
@@ -110,12 +131,39 @@ const Energipriser = () => {
         }
     };
 
+    const handleDiffrentBackgroundColors = () => {
+
+        console.log( data.records );
+
+        // resetting the backgroundcolors array every time, else the diagram colors are wrong
+        if ( backgroundColors.current.length > 0 ) { backgroundColors.current.length = 0 }
+
+        data.records.forEach( r => {
+
+            if ( ( r.SpotPriceDKK / 1000 ) < 2 ) { backgroundColors.current.push( '#72ac4d' ) }
+
+            if ( ( r.SpotPriceDKK / 1000 ) >= 2 && ( r.SpotPriceDKK / 1000 ) < 4 ) { backgroundColors.current.push( '#ffb472' ) }
+
+            if ( ( r.SpotPriceDKK / 1000 ) >= 4 ) { backgroundColors.current.push( '#FF0000' ) }
+        } )
+
+        console.log( backgroundColors.current )
+    }
+
+    const handlepriceUnitSelect = (selectedItem) => {
+
+        if(selectedItem.value === 'MWh') {priceUnitMultipier.current = 1}
+
+        else {priceUnitMultipier.current = 1000}
+
+    }
+
 
     // when pressing the button, send the request
     const handleSubmit = ( e ) => {
         e.preventDefault();
 
-        getData( `https://api.energidataservice.dk/dataset/Elspotprices?offset=0&start=${ startDate }&filter=%7B%22PriceArea%22:[%22${ priceArea }%22]%7D&sort=HourUTC%20ASC&timezone=dk&limit=${ limitHours }` )
+        getData( `https://api.energidataservice.dk/dataset/Elspotprices?offset=0&start=${ startDate }&filter=%7B%22PriceArea%22:[%22${ priceArea }%22]%7D&sort=HourUTC%20ASC&timezone=dk&limit=${ limitHours.current }` )
     }
 
     // fill out the label array, with data (but only when there is data)
@@ -125,6 +173,8 @@ const Energipriser = () => {
             setLabels( data.records.map( h => (
                 new Date( h.HourDK ).toLocaleTimeString( 'da-dk', { hour: '2-digit' } )
             ) ) )
+
+            handleDiffrentBackgroundColors();
         }
 
     }, [ data ] )
@@ -137,13 +187,12 @@ const Energipriser = () => {
             labels,
             datasets: [
                 {
-                    label: 'Energipriser (DKK) de seneste 24 timer',
-                    data: labels?.map( ( l, i ) => data.records[ i ].SpotPriceDKK / 1000 ),
-                    backgroundColor: '#72ac4d',
+                    // label: `mindre end 2 kr. pr. ${priceUnitMultipier.current === 1 ? 'MWh' : 'KWh'} `,
+                    data: labels?.map( ( l, i ) => data.records[ i ].SpotPriceDKK / priceUnitMultipier.current ),
+                    backgroundColor: backgroundColors.current,
                 }
             ]
         } )
-
 
     }, [ labels ] )
 
@@ -153,10 +202,6 @@ const Energipriser = () => {
         <Container fluid="lg">
 
             <Title headline="Energi priser" />
-
-            { error && <Error errorMessage="Noget gik galt da du hentede dataen. Prøv at genindlæse siden." /> }
-
-            { loading && <Loader /> }
 
             <Row>
                 <Col xs={ 12 } md={ { span: 6, offset: 3 } }>
@@ -185,13 +230,27 @@ const Energipriser = () => {
 
                         <DataListInput
                             className="limit"
-                            label="Begrænd antal timer kun kan se adgangen"
+                            label="Begræns data mængden"
                             placeholder={ limitHoursData[ 0 ].name }
                             filters={ [ ( items ) => items ] } //always show everything
-                            onSelect={ selectedItem => setLimitHours( selectedItem.hourValue ) }
+                            onSelect={ selectedItem => limitHours.current = selectedItem.hourValue }
                             items={ limitHoursData.map( h => ( { id: h.id, value: h.name, hourValue: h.hourValue } ) ) }
                             inputProps={ {
                                 title: 'Vælg en begrænsning',
+                                required: true,
+                                readOnly: true
+                            } }
+                        />
+
+                        <DataListInput
+                            className="limit"
+                            label="Megawatt-time el. kilowatt-time"
+                            placeholder={ priceUnitData[ 1 ].value }
+                            filters={ [ ( items ) => items ] } //always show everything
+                            onSelect={ handlepriceUnitSelect }
+                            items={ priceUnitData.map( pu => ( { id: pu.id, value: pu.value} ) ) }
+                            inputProps={ {
+                                title: 'Vælg en pris enhed',
                                 required: true,
                                 readOnly: true
                             } }
@@ -206,8 +265,17 @@ const Energipriser = () => {
 
             <Row>
                 <Col>
+
+                    { error && <Error errorMessage="Noget gik galt da du hentede dataen. Prøv at genindlæse siden." /> }
+
+                    { loading && <Loader /> }
+
                     {
-                        data && labels && chartData &&
+                        data && ( data.records.length === 0 || data.records.length < limitHours.current ) && <Error errorMessage='Kan ikke finde det efterspurgte data. Prøv at vælge nogle andre datoer eller en mindre mængde data. Husk på at priserne for strøm typisk først bliver sat dagen før. Derfor eksistere der typisk ikke data mere end en dag frem i tiden.' />
+                    }
+
+                    {
+                        data && data.records.length === limitHours.current && labels && chartData &&
 
                         <Bar
                             data={ chartData }
