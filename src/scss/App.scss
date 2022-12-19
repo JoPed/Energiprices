@@ -1,0 +1,85 @@
+@import "variables";
+
+html {
+  box-sizing: border-box;
+  font-family: Tahoma, sans-serif;
+
+  background-color: $white;
+
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.headlines {
+    text-align: center;
+  }
+
+  .form {
+    width: 100%;
+  }
+  
+  .labels {
+    font-weight: 600;
+    display: block;
+    width: fit-content;
+    margin-bottom: .5rem;
+    margin-inline: auto;
+  }
+  
+  .formInput {
+    display: block;
+    width: 90%;
+    margin-inline: auto;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $col_MainText;
+    background-color: transparent;
+    border: 1px solid $col_input_border;
+    appearance: none;
+    border-radius: .25rem;
+    color: $col_SecondaryText;
+  
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 .3rem $col_formInput_boxShadow;
+  
+      border-color: $col_formInput_border;
+    }
+  
+  }
+
+  .searchBtn {
+    display: block;
+    min-width: 100px;
+    min-height: 30px;
+    padding-inline: 5px;
+    margin-inline: auto;
+    margin-block: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $col_MainText;
+    background-color: transparent;
+    border: $col_btn_border;
+    appearance: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: $col_SecondaryText;
+  
+    &:hover {
+      color: $col_btn_color_hover;
+      background-color: $col_btn_backgroundColor_hover;
+    }
+  }
+  
+  //*Error
+  .rowOfErrors {
+    text-align: center;
+  }

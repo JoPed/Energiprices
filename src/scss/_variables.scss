@@ -1,0 +1,39 @@
+$black: #0f0e11;
+$white: #F2F2F0;
+$orange: #ffb472;
+$brown-ish: #bf7b3f;
+$green: #72ac4d;
+$grey: #7c7c7c;
+$green2: #6cad22;
+
+$col_MainText: $white;
+$col_SecondaryText: $black;
+$col_primary_boxShadow: 1px 3px 5px rgba($black, .2);
+
+
+
+$col_navbar_background: $black;
+$col_navbar_items: $white;
+$col_navbar_items-highlighted: $orange;
+$col_navbar_overlay: rgba($black, .95);
+
+$col_loader_inner: $orange;
+
+$col_dropdown_background: $white;
+
+$col_input_border: $black;
+$col_formInput_border: $orange;
+$col_formInput_boxShadow: rgba($brown-ish, .5);
+
+
+// React-datalist styling - currentweather 2
+$col_marker: $orange;
+$col_listbox_background: $white;
+$col_listbox_boxShadow: $black;
+$col_option--focus: $black;
+$col_option--hover: $black;
+
+$col_btn_border: 1px solid $black;
+$col_btn_color_hover: $white;
+$col_btn_backgroundColor_hover: $black;
+
