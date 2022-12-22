@@ -1,0 +1,64 @@
+@import 'variables';
+
+.footer{
+    width: 100%;
+    background-color: $black;
+    color: $col_MainText;
+    margin-top: auto;
+    padding-inline: .75rem;
+    padding-block: 1.25rem;
+}
+
+.contactInfo{    
+    width: fit-content;
+    margin-inline: auto;
+}
+
+.contactInfo ul {
+    list-style-type: none;
+    line-height: 1.5;
+    text-align: center;
+
+    svg {
+        font-size: 1.2rem;
+        vertical-align: middle;
+    }
+}
+
+.contactInfo h2{
+    text-align: center;
+}
+
+.contactInfo a, .socials a{
+    color: $col_MainText;
+        text-decoration: none;
+        display: block;
+        width: fit-content;
+        margin-inline: auto;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+}
+
+.socials{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    margin-inline: auto;
+}
+
+.socials a{
+    display: inline-block;
+
+    svg {
+        font-size: 2.5rem;
+        vertical-align: middle;
+    }
+}
+
+.socials a:nth-child(1), .socials a:nth-child(3){
+    margin-right: .5rem;
+}

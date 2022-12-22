@@ -16,6 +16,18 @@ html {
   padding: 0;
 }
 
+//*Setting up so the footer will always be on the bottom 
+html,
+body,
+#root {
+    min-height: 100vh;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
 a{
   color: $col_SecondaryText;
   text-decoration: none;

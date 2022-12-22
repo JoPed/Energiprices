@@ -8,6 +8,7 @@ import Guide from "./pages/Guide";
 import About from "./pages/About";
 
 import Navbar from "./components/Navbar";
+import Footer from './components/Footer';
 
 function App() {
   
@@ -24,6 +25,8 @@ function App() {
         <Route path='/about' element={<About /> } /> 
 
       </Routes>
+
+      <Footer />
 
 
     </Router>
