@@ -199,7 +199,7 @@ const Energipriser = () => {
 
     return (
 
-        <Container fluid="lg" className="mb-3">
+        <Container fluid="lg" className="mb-5">
 
             <Title headline="Energi priser" />
 

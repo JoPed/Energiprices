@@ -7,6 +7,18 @@
     margin-top: auto;
     padding-inline: .75rem;
     padding-block: 1.25rem;
+
+    p{
+        text-align: center;
+
+        span:first-child{
+            font-weight: bold;
+        }
+
+        span:last-child{
+            font-style: italic;
+        }
+    }
 }
 
 .contactInfo{    

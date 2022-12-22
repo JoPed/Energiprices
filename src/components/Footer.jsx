@@ -11,7 +11,7 @@ const Footer = () => {
         <footer className="footer">
 
             <Row>
-                <Col xs={ { span: 12 } } lg={ { span: 4, offset: 2} } >
+                <Col xs={ { span: 12 } } lg={ { span: 4} } >
 
                     <section className="contactInfo">
 
@@ -25,6 +25,10 @@ const Footer = () => {
 
                     </section>
 
+                </Col>
+
+                <Col xs={ { span: 12 } } lg={ { span: 4} } className="d-flex flex-column justify-content-center">
+                    <p><span>Website by</span> <span>Jonas Bjørn Pedersen &copy;</span></p>
                 </Col>
 
                 <Col xs={ { span: 12 } } lg={ { span: 4 } } >
