@@ -7,10 +7,12 @@
    margin-bottom: 1rem;
  }
 
- .priceArea, .limit, .date{
-  width: 33%;
-  margin-inline: auto;
-  margin-bottom: 1.5rem;
+ .priceArea,
+ .limit,
+ .date {
+   width: 33%;
+   margin-inline: auto;
+   margin-bottom: 1.5rem;
  }
 
  //*Markdown from react-datalist-input package
@@ -55,11 +57,11 @@
  }
 
  .react-datalist-input__label {
-  font-weight: 600;
-  display: block;
-  width: fit-content;
-  margin-bottom: .5rem;
-  margin-inline: auto;
+   font-weight: 600;
+   display: block;
+   width: fit-content;
+   margin-bottom: .5rem;
+   margin-inline: auto;
  }
 
  .react-datalist-input__listbox-option {
@@ -80,11 +82,37 @@
  }
 
 
- @media only screen and (max-width: 500px) {
+ @media only screen and (max-width: 1199px) {
 
-  .priceArea, .limit, .date{
-    width: 75%;
+
+   .priceArea,
+   .limit,
+   .date {
+     width: 50%;
    }
 
-  
+
+ }
+
+ @media only screen and (max-width: 767px) {
+
+   .priceArea,
+   .limit,
+   .date {
+     width: 33%;
+   }
+
+
+ }
+
+
+ @media only screen and (max-width: 500px) {
+
+   .priceArea,
+   .limit,
+   .date {
+     width: 75%;
+   }
+
+
  }
