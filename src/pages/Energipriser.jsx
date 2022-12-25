@@ -133,8 +133,6 @@ const Energipriser = () => {
 
     const handleDiffrentBackgroundColors = () => {
 
-        console.log( data.records );
-
         // resetting the backgroundcolors array every time, else the diagram colors are wrong
         if ( backgroundColors.current.length > 0 ) { backgroundColors.current.length = 0 }
 

@@ -74,3 +74,59 @@
 .socials a:nth-child(1), .socials a:nth-child(3){
     margin-right: .5rem;
 }
+
+.copyRight{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+@media only screen and (max-width: 991px){    
+
+    .contactInfo{
+        margin-inline: auto;
+    }
+
+    .socials{ 
+        order: 1;
+        margin-inline: auto;
+    }
+
+    .copyRight{
+        order: 2;
+        margin-inline: auto;
+        margin-top: 2rem;
+        row-gap: .5rem;
+    }
+    
+}
+
+@media only screen and (max-width: 767px) {
+
+    .contactInfo{
+        margin-left: 1rem;
+    }
+
+    .socials{
+        margin-right: 1rem;
+    }
+    
+}
+
+@media only screen and (max-width: 575px) {
+
+    .copyRight{
+        margin-top: 0;
+        row-gap: .5rem;
+    }
+
+    .contactInfo, .socials{
+        margin-inline: auto;
+    }
+
+    .socials{
+        margin-block: 3rem;
+    }
+    
+}
